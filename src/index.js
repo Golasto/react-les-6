@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './App';
+import AuthApp from './components/AuthContext';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <App/>
+      <AuthApp children={<App/>} />
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
