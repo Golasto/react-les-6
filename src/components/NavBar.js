@@ -1,37 +1,49 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import logo from '../assets/banana-01.png';
-import { useHistory, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AutContext } from '../context/AuthContext';
 
 function NavBar() {
-  const history = useHistory();
+  const navigate = useNavigate();
+  const value = useContext(AutContext);
 
   return (
-    <nav>
+      <nav>
         <Link to="/">
-          <span className="logo-container">
-            <img src={logo} alt="logo"/>
-            <h3>
-              Banana Security
-            </h3>
-          </span>
+        <span className="logo-container">
+          <img src={logo} alt="logo" />
+          <h3>
+            Banana Security
+          </h3>
+        </span>
         </Link>
-
-      <div>
-        <button
-          type="button"
-          onClick={() => history.push('/signin')}
-        >
-          Log in
-        </button>
-        <button
-          type="button"
-          onClick={() => history.push('/signup')}
-        >
-          Registreren
-        </button>
-      </div>
-    </nav>
+        {value.auth.isAuth === false &&
+            <div>
+              <button
+                  type="button"
+                  onClick={() => navigate('/signin')}
+              >
+                Log in
+              </button>
+              <button
+                  type="button"
+                  onClick={() => navigate('/signup')}
+              >
+                Registreren
+              </button>
+            </div>
+        }
+        {value.auth.isAuth === true &&
+            <div>
+              <button
+                  type="button"
+                  onClick={value.logOut}
+              >
+                Log out
+              </button>
+            </div>
+        }
+      </nav>
   );
 }
-
 export default NavBar;
